@@ -1,0 +1,39 @@
+@startuml Utilities/Core
+skinparam classAttributeIconSize 0
+
+package "Core / Infrastructure" {
+  class DBManager {
+    -db
+    -instance
+    +getPDO()
+    +query()
+  }
+
+  class AbstractEntityManager {
+    -db
+    +__construct()
+  }
+
+  class AbstractEntity {
+    +__construct()
+    +getId()
+    +setId()
+  }
+}
+
+package "Presentation" {
+  class View {
+    +__construct()
+    +render()
+  }
+}
+
+package "Helpers" {
+  class Utils {
+  }
+}
+
+AbstractEntityManager --> DBManager
+View ..> Utils
+
+@enduml

@@ -1,0 +1,43 @@
+@startuml Models/Entities
+skinparam classAttributeIconSize 0
+
+package "Entities" {
+  class AbstractEntity {
+    +__construct()
+    +getId()
+    +setId()
+  }
+
+  class Article extends AbstractEntity {
+    +getTitle()
+    +setTitle()
+    +getContent()
+    +setContent()
+    +getDateCreation()
+    +setDateCreation()
+    +getDateUpdate()
+    +setDateUpdate()
+    +getIdUser()
+    +setIdUser()
+  }
+
+  class Comment extends AbstractEntity {
+    +getPseudo()
+    +setPseudo()
+    +getContent()
+    +setContent()
+    +getDateCreation()
+    +setDateCreation()
+    +getIdArticle()
+    +setIdArticle()
+  }
+
+  class User extends AbstractEntity {
+    +getLogin()
+    +setLogin()
+    +getPassword()
+    +setPassword()
+  }
+}
+
+@enduml

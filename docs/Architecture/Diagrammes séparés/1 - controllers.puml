@@ -1,0 +1,56 @@
+@startuml Controllers
+skinparam classAttributeIconSize 0
+
+package "Controllers" {
+  class AdminController {
+    +showAdmin()
+    +displayConnectionForm()
+    +connectUser()
+    +disconnectUser()
+    +showUpdateArticleForm()
+    +updateArticle()
+    +deleteArticle()
+  }
+
+  class ArticleController {
+    +showHome()
+    +showArticle()
+    +showApropos()
+    +addArticle()
+  }
+
+  class CommentController {
+    +addComment()
+  }
+}
+
+package "Managers" {
+  class ArticleManager
+  class CommentManager
+  class UserManager
+}
+
+package "View" {
+  class View
+}
+
+package "Services" {
+  class Utils
+}
+
+AdminController --> ArticleManager
+AdminController --> CommentManager
+AdminController --> UserManager
+AdminController --> View
+AdminController ..> Utils
+
+ArticleController --> ArticleManager
+ArticleController --> CommentManager
+ArticleController --> View
+ArticleController ..> Utils
+
+CommentController --> CommentManager
+CommentController --> View
+CommentController ..> Utils
+
+@enduml

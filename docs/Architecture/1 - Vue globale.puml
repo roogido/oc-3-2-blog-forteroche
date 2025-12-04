@@ -1,0 +1,75 @@
+@startuml Vue_globale
+skinparam packageStyle rectangle
+skinparam arrowsStyle solid
+
+package "Controllers" {
+    class AdminController
+    class ArticleController
+    class CommentController
+}
+
+package "Managers" {
+    class AbstractEntityManager
+    class ArticleManager
+    class CommentManager
+    class UserManager
+    class DBManager
+}
+
+package "Entities" {
+    class AbstractEntity
+    class Article
+    class Comment
+    class User
+}
+
+package "View" {
+    class View
+}
+
+package "Services" {
+    class Utils
+}
+
+' === Relations principales MVC ===
+
+' Controllers → Managers
+AdminController --> ArticleManager
+AdminController --> CommentManager
+AdminController --> UserManager
+
+ArticleController --> ArticleManager
+ArticleController --> CommentManager
+
+CommentController --> CommentManager
+
+' Managers → DB
+ArticleManager --> DBManager
+CommentManager --> DBManager
+UserManager --> DBManager
+
+' Managers → Entities
+ArticleManager --> Article
+CommentManager --> Comment
+UserManager --> User
+
+' Entities inheritance
+Article --|> AbstractEntity
+Comment --|> AbstractEntity
+User --|> AbstractEntity
+
+' Managers inheritance
+ArticleManager --|> AbstractEntityManager
+CommentManager --|> AbstractEntityManager
+UserManager --|> AbstractEntityManager
+
+' Controllers → View
+AdminController --> View
+ArticleController --> View
+CommentController --> View
+
+' Utilities
+Controllers ..> Utils : uses
+Managers ..> Utils : uses
+
+@enduml

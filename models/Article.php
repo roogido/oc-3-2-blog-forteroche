@@ -3,7 +3,17 @@
 /**
  * Entité Article, un article est défini par les champs
  * id, id_user, title, content, date_creation, date_update
+ * 
+ * 
+ * Date : Mercredi 3 décembre 2025
+ * Maj  : Jeudi 4 décembre 2025
+ * 
+ * Update : 4/12/2025 - Salem Hadjali
+ *          - Ajout de la colonne 'views' au modèle afin de
+ *             comptabiliser le nombre de vues
+ * 
  */
+
  class Article extends AbstractEntity 
  {
     private int $idUser;
@@ -11,6 +21,7 @@
     private string $content = "";
     private ?DateTime $dateCreation = null;
     private ?DateTime $dateUpdate = null;  
+    private int $views = 0;
 
     /**
      * Setter pour l'id de l'utilisateur. 
@@ -126,5 +137,24 @@
     public function getDateUpdate() : ?DateTime 
     {
         return $this->dateUpdate;
+    }
+
+    /**
+     * Getter pour le nombre de vues.
+     * @return int
+     */
+    public function getViews(): int
+    {
+        return $this->views;
+    }
+
+    /**
+     * Setter pour le nombre de vues.
+     * @param int $views
+     */    
+    public function setViews(int $views): self
+    {
+        $this->views = $views;
+        return $this;
     }
  }

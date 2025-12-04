@@ -1,0 +1,58 @@
+@startuml Dépendances
+skinparam packageStyle rectangle
+
+package "Controllers" {
+  class AdminController
+  class ArticleController
+  class CommentController
+}
+
+package "Managers" {
+  class ArticleManager
+  class CommentManager
+  class UserManager
+}
+
+package "Entities" {
+  class Article
+  class Comment
+  class User
+}
+
+package "Core" {
+  class DBManager
+}
+
+package "View" {
+  class View
+}
+
+package "Services" {
+  class Utils
+}
+
+' Flux principal
+AdminController --> ArticleManager
+AdminController --> CommentManager
+AdminController --> UserManager
+AdminController --> View
+AdminController ..> Utils
+
+ArticleController --> ArticleManager
+ArticleController --> CommentManager
+ArticleController --> View
+ArticleController ..> Utils
+
+CommentController --> CommentManager
+CommentController --> View
+CommentController ..> Utils
+
+ArticleManager --> DBManager
+CommentManager --> DBManager
+UserManager --> DBManager
+
+ArticleManager --> Article
+CommentManager --> Comment
+UserManager --> User
+
+@enduml

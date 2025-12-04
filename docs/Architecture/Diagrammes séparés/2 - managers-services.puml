@@ -1,0 +1,48 @@
+@startuml Managers/Services
+skinparam classAttributeIconSize 0
+
+package "Managers" {
+  class AbstractEntityManager {
+    -db
+    +__construct()
+  }
+
+  class ArticleManager extends AbstractEntityManager {
+    +getAllArticles()
+    +getArticleById()
+    +addArticle()
+    +addOrUpdateArticle()
+    +updateArticle()
+    +deleteArticle()
+  }
+
+  class CommentManager extends AbstractEntityManager {
+    +getAllCommentsByArticleId()
+    +getCommentById()
+    +addComment()
+    +deleteComment()
+  }
+
+  class UserManager extends AbstractEntityManager {
+    +getUserByLogin()
+  }
+}
+
+package "Core" {
+  class DBManager {
+    -db
+    -instance
+    +getPDO()
+    +query()
+  }
+}
+
+ArticleManager --> DBManager
+CommentManager --> DBManager
+UserManager --> DBManager
+
+ArticleManager --|> AbstractEntityManager
+CommentManager --|> AbstractEntityManager
+UserManager --|> AbstractEntityManager
+
+@enduml

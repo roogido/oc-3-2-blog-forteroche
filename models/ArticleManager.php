@@ -20,6 +20,12 @@ class ArticleManager extends AbstractEntityManager
         }
         return $articles;
     }
+
+    public function incrementViews(int $id): void
+    {
+        $sql = "UPDATE article SET views = views + 1 WHERE id = :id";
+        $result = $this->db->query($sql, ['id' => $id]);
+    }    
     
     /**
      * Récupère un article par son id.

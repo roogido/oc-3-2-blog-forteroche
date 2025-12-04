@@ -1,0 +1,152 @@
+@startuml Classes
+skinparam classAttributeIconSize 0
+
+' =======================
+' Controllers
+' =======================
+class AdminController {
+  +showAdmin()
+  +displayConnectionForm()
+  +connectUser()
+  +disconnectUser()
+  +showUpdateArticleForm()
+  +updateArticle()
+  +deleteArticle()
+}
+
+class ArticleController {
+  +showHome()
+  +showArticle()
+  +showApropos()
+  +addArticle()
+}
+
+class CommentController {
+  +addComment()
+}
+
+' =======================
+' Managers / Services
+' =======================
+class AbstractEntityManager {
+  -db
+  +__construct()
+}
+
+class ArticleManager extends AbstractEntityManager {
+  +getAllArticles()
+  +getArticleById()
+  +addArticle()
+  +addOrUpdateArticle()
+  +updateArticle()
+  +deleteArticle()
+}
+
+class CommentManager extends AbstractEntityManager {
+  +getAllCommentsByArticleId()
+  +getCommentById()
+  +addComment()
+  +deleteComment()
+}
+
+class UserManager extends AbstractEntityManager {
+  +getUserByLogin()
+}
+
+class DBManager {
+  -db
+  -instance
+  +getPDO()
+  +query()
+}
+
+' =======================
+' Entities / Models
+' =======================
+class AbstractEntity {
+  +__construct()
+  +getId()
+  +setId()
+}
+
+class Article extends AbstractEntity {
+  +getTitle()
+  +setTitle()
+  +getContent()
+  +setContent()
+  +getDateCreation()
+  +setDateCreation()
+  +getDateUpdate()
+  +setDateUpdate()
+  +getIdUser()
+  +setIdUser()
+}
+
+class Comment extends AbstractEntity {
+  +getPseudo()
+  +setPseudo()
+  +getContent()
+  +setContent()
+  +getDateCreation()
+  +setDateCreation()
+  +getIdArticle()
+  +setIdArticle()
+}
+
+class User extends AbstractEntity {
+  +getLogin()
+  +setLogin()
+  +getPassword()
+  +setPassword()
+}
+
+' =======================
+' View / Utils
+' =======================
+class View {
+  +__construct()
+  +render()
+}
+
+class Utils {
+}
+
+' =======================
+' Relations
+' =======================
+
+' Controllers -> Managers / View / Utils
+AdminController --> ArticleManager
+AdminController --> CommentManager
+AdminController --> UserManager
+AdminController --> View
+AdminController ..> Utils
+
+ArticleController --> ArticleManager
+ArticleController --> CommentManager
+ArticleController --> View
+ArticleController ..> Utils
+
+CommentController --> CommentManager
+CommentController --> View
+CommentController ..> Utils
+
+' Managers -> DB / Entities
+ArticleManager --> DBManager
+CommentManager --> DBManager
+UserManager --> DBManager
+
+ArticleManager --> Article
+CommentManager --> Comment
+UserManager --> User
+
+' Inheritance
+Article --|> AbstractEntity
+Comment --|> AbstractEntity
+User --|> AbstractEntity
+
+ArticleManager --|> AbstractEntityManager
+CommentManager --|> AbstractEntityManager
+UserManager --|> AbstractEntityManager
+
+@enduml

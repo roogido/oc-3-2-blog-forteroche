@@ -1,0 +1,31 @@
+@startuml heritage
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+
+title Héritage des classes (Projet Blog PHP)
+
+package "Entities" {
+    class AbstractEntity
+    class Article
+    class Comment
+    class User
+}
+
+package "Managers" {
+    class AbstractEntityManager
+    class ArticleManager
+    class CommentManager
+    class UserManager
+}
+
+' ===== Héritage : Entities =====
+Article --|> AbstractEntity
+Comment --|> AbstractEntity
+User --|> AbstractEntity
+
+' ===== Héritage : Managers =====
+ArticleManager --|> AbstractEntityManager
+CommentManager --|> AbstractEntityManager
+UserManager --|> AbstractEntityManager
+
+@enduml
