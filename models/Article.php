@@ -21,7 +21,7 @@
     private string $content = "";
     private ?DateTime $dateCreation = null;
     private ?DateTime $dateUpdate = null;  
-    private int $views = 0;
+    private int $views = 0;                 // Update SH, permet de connaître le nombre totale de vues 
 
     /**
      * Setter pour l'id de l'utilisateur. 
@@ -140,6 +140,7 @@
     }
 
     /**
+     * Update SH : Ajout méthode
      * Getter pour le nombre de vues.
      * @return int
      */
@@ -149,6 +150,7 @@
     }
 
     /**
+     * Update SH : Ajout méthode
      * Setter pour le nombre de vues.
      * @param int $views
      */    

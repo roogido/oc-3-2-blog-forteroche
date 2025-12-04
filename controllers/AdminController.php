@@ -158,7 +158,6 @@ class AdminController {
         Utils::redirect("admin");
     }
 
-
     /**
      * Suppression d'un article.
      * @return void
@@ -176,4 +175,46 @@ class AdminController {
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
     }
+
+    /**
+     * Accès a la page de monitoring des articles
+     * @return void
+     */    
+    public function showMonitoring(): void
+    {
+        // On vérifie que l'utilisateur est connecté.
+        $this->checkIfUserIsConnected();
+
+        $articleManager = new ArticleManager();
+        $commentManager = new CommentManager();
+
+        // Récupération des paramètres de tri
+        $sort = $_GET['sort'] ?? 'date_creation';
+        $direction = strtoupper($_GET['dir'] ?? 'DESC');
+
+        // Sécurisation
+        $allowedSort = ['title', 'views', 'comment_count', 'date_creation'];
+        if (!in_array($sort, $allowedSort, true)) {
+            $sort = 'date_creation';
+        }
+        if (!in_array($direction, ['ASC', 'DESC'], true)) {
+            $direction = 'DESC';
+        }
+
+        // Récupération des articles triés
+        $articles = $articleManager->getArticlesForMonitoring($sort, $direction);
+
+        // Injection du nombre de commentaires par article
+        foreach ($articles as $article) {
+            $article->commentCount = $commentManager->countCommentsByArticleId($article->getId());
+        }
+
+        $view = new View("Monitoring des articles");
+        $view->render("adminMonitoring", [
+            'articles' => $articles,
+            'sort' => $sort,
+            'direction' => $direction
+        ]);
+    }    
+
 }

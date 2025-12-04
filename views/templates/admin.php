@@ -18,4 +18,8 @@
     <?php } ?>
 </div>
 
-<a class="submit" href="index.php?action=showUpdateArticleForm">Ajouter un article</a>
+<!-- Update SH : Ajout bouton showMonitoring/Affichage page monitoring  -->
+<div class="admin-buttons">
+    <a class="submit" href="index.php?action=showUpdateArticleForm">Ajouter un article</a>
+    <a class="submit" href="index.php?action=showMonitoring">Monitoring des articles</a>
+</div>

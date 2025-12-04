@@ -119,9 +119,7 @@ Pourquoi réaliser cet exercice ?
 
     Il faut donc savoir sur quelle colonne l’utilisateur a cliqué. De plus, le tri peut se faire par ordre croissant ou décroissant. 
     Comment stocker cette information ? 
-
-    
-
+   
     Visuellement, comment indiquer à l’utilisateur qu’il peut cliquer ou que l’ordre est croissant/décroissant ? 
 
 Étape 5 – Supprimez les commentaires

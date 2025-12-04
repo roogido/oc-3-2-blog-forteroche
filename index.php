@@ -37,11 +37,22 @@ try {
             $commentController->addComment();
             break;
 
+        // Update SH : Ajout route suivante. Suppression d'un commentaire
+        case 'deleteComment':
+            $controller = new CommentController();
+            $controller->deleteComment();
+            break;            
 
         // Section admin & connexion. 
         case 'admin': 
             $adminController = new AdminController();
             $adminController->showAdmin();
+            break;
+
+        // Update SH : Ajout route suivante. Affiche la page de monitoring des articles
+        case 'showMonitoring': 
+            $adminController = new AdminController();
+            $adminController->showMonitoring();
             break;
 
         case 'connectionForm':

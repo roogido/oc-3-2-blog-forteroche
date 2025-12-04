@@ -1,41 +1,72 @@
-Prérequis : 
-	- Création de la database blog_forteroche :
-		CREATE DATABASE blog_forteroche
-			->     CHARACTER SET utf8mb4
-			->     COLLATE utf8mb4_unicode_ci;
+Prérequis :
+    - Création de la database blog_forteroche :
+        CREATE DATABASE blog_forteroche
+            CHARACTER SET utf8mb4
+            COLLATE utf8mb4_unicode_ci;
+
+    - Activation de la librairie intl (php.ini)
+
+    - Renommage de config/_config.php -> config/config.php.
 
 
-	- Activation de la libraire intl (php.ini)
-	
-	- Renomme config/_config.php -> config/config.php.
+1. Initialisation du projet
 
-1. Initialialisation du projet
+    - Création du repository GitHub "oc-3-2-blog-forteroche"
 
-	Et :
-		- Création repository github "oc-3-2-blog-forteroche"
-		
-	git init
-	git add .
-	git commit -m "Initialisation du projet P3L2 - Blog Forteroche"	
-	git remote add origin git@github.com:roogido/oc-3-2-blog-forteroche.git
-	git push -u origin main
-
-		
-2. Stocker les informations manquantes
-	- Ajout de la colonne views (int non signé) dans table article :
-		ALTER TABLE article
-			ADD COLUMN views INT UNSIGNED NOT NULL DEFAULT 0 AFTER content;
-
-	- Adaptation de l'entité : classe models/Article
-		- Attribut + setter/getter
-
-	- Ajout de la méthode incrementViews au modèle  models/ArticleManager
-
-3.
-
-4.
-
-5.
+        git init
+        git add .
+        git commit -m "Initialisation du projet P3L2 - Blog Forteroche"
+        git remote add origin git@github.com:roogido/oc-3-2-blog-forteroche.git
+        git push -u origin main
 
 
-6.
+2. (Étape 2) Stocker les informations manquantes
+
+    - Analyse du projet existant + création de diagrammes UML pour compréhension globale
+    - Ajout de la colonne views dans la table article :
+        ALTER TABLE article
+            ADD COLUMN views INT UNSIGNED NOT NULL DEFAULT 0 AFTER content;
+
+    - Adaptation de l’entité Article (models/Article) :
+        - Ajout de l’attribut $views
+        - Ajout des getter/setter dédiés
+
+    - Ajout de la méthode incrementViews() dans models/ArticleManager
+    - Mise à jour du contrôleur ArticleController pour incrémenter les vues lors de l'affichage d’un article
+
+    Commit réalisé :
+        git commit -m "feat: (étape 2) Adaptations pour inclure les informations manquantes"
+
+
+3. (Étape 3) Création de la page de monitoring
+
+    - Création du template views/templates/adminMonitoring.php
+    - Ajout du tableau de monitoring listant :
+        - Titre
+        - Nombre de vues
+        - Nombre de commentaires
+        - Date de publication
+    - Ajout du lien "Monitoring des articles" dans la partie administration
+    - Mise en forme CSS (monitoring-table, hover d’en-têtes, lignes alternées)
+
+
+4. (Étape 4) Mise en place du tri dynamique
+
+    - Gestion des paramètres GET sort et dir (ASC/DESC)
+    - Utilisation d’une whitelist pour sécuriser le tri
+    - Ajout de la méthode getArticlesForMonitoring() dans models/ArticleManager
+    - Ajout d’indicateurs visuels (▲/▼) dans les colonnes du tableau
+    - Sécurisation de la logique de tri (fallback par défaut)
+
+
+5. (Étape 5) Suppression des commentaires
+
+    - Ajout du bouton "Supprimer" dans views/templates/detailArticle.php pour chaque commentaire
+    - Ajout de la route deleteComment dans index.php
+    - Ajout de la méthode deleteComment() dans controllers/CommentController
+    - Ajout de la méthode deleteCommentById() dans models/CommentManager
+    - Redirection automatique vers l’article après suppression
+    - Ajout d’un confirm via Utils::askConfirmation()
+
+
+6. Préparation du commit final regroupant les étapes 2 à 5

@@ -98,4 +98,40 @@ class ArticleManager extends AbstractEntityManager
         $sql = "DELETE FROM article WHERE id = :id";
         $this->db->query($sql, ['id' => $id]);
     }
+
+    /**
+     * Update SH : Ajout méthode
+     * Récupère la liste des articles pour la page de monitoring,
+     * avec possibilité de tri dynamique.
+     *
+     * Le tri est sécurisé via une whitelist : seuls les champs autorisés
+     * peuvent être utilisés dans l'ORDER BY. Pour le tri sur le nombre de
+     * commentaires, la valeur est gérée après récupération (injection manuelle).
+     *
+     * @param string $sort      Colonne sur laquelle appliquer le tri (whitelistée).
+     * @param string $direction Sens du tri : ASC ou DESC.
+     *
+     * @return Article[]        Tableau d'objets Article hydratés.
+     */    
+    public function getArticlesForMonitoring(string $sort, string $direction): array
+    {
+        $allowed = [
+            'title' => 'title',
+            'views' => 'views',
+            'comment_count' => 'date_creation', // tri par commentaire se fera après injection
+            'date_creation' => 'date_creation'
+        ];
+
+        $sortField = $allowed[$sort] ?? 'date_creation';
+
+        $sql = "SELECT * FROM article ORDER BY {$sortField} {$direction}";
+        $result = $this->db->query($sql);
+
+        $articles = [];
+        while ($row = $result->fetch()) {
+            $articles[] = new Article($row);
+        }
+
+        return $articles;
+    }    
 }

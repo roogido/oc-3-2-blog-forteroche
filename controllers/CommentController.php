@@ -44,4 +44,23 @@ class CommentController
         // On redirige vers la page de l'article.
         Utils::redirect("showArticle", ['id' => $idArticle]);
     }
+
+    // Update SH : Ajout méthode 
+    // Suppression d'un commantaire donné
+    public function deleteComment(): void
+    {
+        $id = Utils::request("id", -1);
+        $articleId = Utils::request("article", -1);
+
+        if ($id <= 0 || $articleId <= 0) {
+            throw new Exception("Requête invalide.");
+        }
+
+        $commentManager = new CommentManager();
+        $commentManager->deleteCommentById($id);
+
+        // Retour sur l'article concerné
+        header("Location: index.php?action=showArticle&id=" . $articleId);
+        exit;
+    }    
 }
