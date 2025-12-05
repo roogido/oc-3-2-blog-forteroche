@@ -23,6 +23,7 @@ Le code respecte les bonnes pratiques modernes :
 ## 📦 Prérequis
 
 ### Base de données
+
 Créer la base `blog_forteroche` :
 CREATE DATABASE blog_forteroche
 CHARACTER SET utf8mb4
@@ -32,10 +33,12 @@ COLLATE utf8mb4_unicode_ci;
 Importer ensuite le contenu du fichier SQL initial présent dans `/sql/blog_forteroche.sql`.
 
 ### Configuration PHP
+
 - PHP ≥ 8.2
 - Activer l’extension **intl** dans `php.ini`
 
 ### Configuration du projet
+
 Renommer le fichier :
 config/_config.php -> config/config.php
 
@@ -62,35 +65,54 @@ La suppression des commentaires, la gestion des articles et la page de monitorin
 
 ## 🔧 Architecture du projet
 
-/controllers
-AdminController.php
-ArticleController.php
-CommentController.php
-
-/models
-Article.php
-ArticleManager.php
-Comment.php
-CommentManager.php
-User.php
-UserManager.php
-DBManager.php
-
-/views
-templates/
-home.php
-detailArticle.php
-connectionForm.php
-admin.php
-adminMonitoring.php
-...
-View.php
-
-/services
-Utils.php
-
-/config
-config.php
+```text
+project/
+├─ index.php                        # Point d'entrée du site (router)
+├─ .htaccess                        # Redirection/URL rewriting (si utilisé)
+├─ config/
+│   └─ config.php                   # Paramètres de connexion à la base de données
+│
+├─ controllers/
+│   ├─ ArticleController.php        # Logique articles : accueil, détail, vues
+│   ├─ CommentController.php        # Logique commentaires : ajout, suppression
+│   └─ AdminController.php          # Accès admin : monitoring, gestion articles
+│
+├─ models/
+│   ├─ DBManager.php                # Connexion PDO centralisée (singleton)
+│   ├─ AbstractEntity.php           # Hydratation générique des entités
+│   ├─ AbstractEntityManager.php    # Classe mère des managers
+│   │
+│   ├─ Article.php                  # Entité Article (titre, contenu, vues…)
+│   ├─ ArticleManager.php           # CRUD + tri + monitoring des articles
+│   │
+│   ├─ Comment.php                  # Entité Commentaire
+│   ├─ CommentManager.php           # CRUD commentaires + compte par article
+│   │
+│   ├─ User.php                     # Entité Utilisateur
+│   └─ UserManager.php              # Vérification login / récupération utilisateur
+│
+├─ views/
+│   ├─ View.php                     # Moteur de rendu des templates
+│   └─ templates/
+│       ├─ main.php                 # Template principal (layout)
+│       ├─ home.php                 # Page d'accueil
+│       ├─ detailArticle.php        # Page article + commentaires
+│       ├─ connectionForm.php       # Formulaire de connexion
+│       ├─ admin.php                # Gestion des articles
+│       └─ adminMonitoring.php      # Page de monitoring des articles
+│
+├─ services/
+│   └─ Utils.php                    # Fonctions utilitaires (sécurité, helpers)
+│
+├─ css/
+│   └─ style.css                    # Styles principaux du site
+│
+├─ sql/
+│   └─ initial/
+│       └─ blog_forteroche.sql      # Script SQL de création + données de base
+│
+└─ docs/                            # Documentation et fichiers annexes (optionnel)
+```
 
 ---
 
