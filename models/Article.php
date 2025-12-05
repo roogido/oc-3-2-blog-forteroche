@@ -22,6 +22,7 @@
     private ?DateTime $dateCreation = null;
     private ?DateTime $dateUpdate = null;  
     private int $views = 0;                 // Update SH, permet de connaître le nombre totale de vues 
+    private int $commentCount = 0;          // ........., idem mais pour le nbre de commenaires
 
     /**
      * Setter pour l'id de l'utilisateur. 
@@ -159,4 +160,25 @@
         $this->views = $views;
         return $this;
     }
+
+    /**
+     * Update SH : Ajout méthode
+     * Setter pour le nombre de commentaires.
+     * @return void
+     */    
+    public function setCommentCount(int $count): void
+    {
+        $this->commentCount = $count;
+    }
+
+    /**
+     * Update SH : Ajout méthode
+     * Getter pour le nombre de commentaire.
+     * @return int
+     */    
+    public function getCommentCount(): int
+    {
+        return $this->commentCount;
+    }
+
  }

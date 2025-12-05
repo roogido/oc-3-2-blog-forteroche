@@ -87,4 +87,32 @@ class Utils {
         return $_REQUEST[$variableName] ?? $defaultValue;
     }
 
+    /**
+     * Update SH : Déplacer ici car utilisé à plusieurs endroits
+     * 
+     * Vérifie que l'utilisateur est connecté.
+     * @return void
+     */    
+    public static function checkIfUserIsConnected(): void
+    {
+        if (!isset($_SESSION['user'])) {
+            self::redirect("connectionForm");
+        }
+    }    
+
+    /**
+     * Update SH : Ajout méthode
+     * 
+     * Vérifie simplemnet si un utilisateur est connecté.
+     *
+     * Contrairement à checkIfUserIsConnected(), cette méthode ne réalise
+     * aucune redirection. Elle permet uniquement de connaître l'état de
+     * connexion (ex. : pour afficher ou masquer certains éléments dans les vues).
+     *
+     * @return bool true si un utilisateur est connecté, false sinon.
+     */
+    public static function isUserConnected(): bool
+    {
+        return isset($_SESSION['user']);
+    }
 }

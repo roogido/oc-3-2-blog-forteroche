@@ -49,6 +49,8 @@ class CommentController
     // Suppression d'un commantaire donné
     public function deleteComment(): void
     {
+        Utils::checkIfUserIsConnected();
+
         $id = Utils::request("id", -1);
         $articleId = Utils::request("article", -1);
 
@@ -62,5 +64,6 @@ class CommentController
         // Retour sur l'article concerné
         header("Location: index.php?action=showArticle&id=" . $articleId);
         exit;
-    }    
+    }   
+    
 }

@@ -69,4 +69,17 @@ Prérequis :
     - Ajout d’un confirm via Utils::askConfirmation()
 
 
-6. Préparation du commit final regroupant les étapes 2 à 5
+6. 
+git add .
+git commit -m "feat: add article views, monitoring page, sorting system and comment deletion
+
+- Added 'views' field to Article entity and database structure
+- Implemented automatic view counter increment in ArticleController
+- Created monitoring page with sortable columns (title, views, comments, date)
+- Added ArticleManager method for dynamic sorting with whitelist security
+- Added CommentManager count method for comment statistics
+- Integrated monitoring link into admin interface
+- Added deleteComment route, controller action and manager method
+- Added delete button in article detail view with confirmation dialog
+- Updated CSS for monitoring table and UI improvements"
+git push

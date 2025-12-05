@@ -47,7 +47,7 @@
             <tr class="<?= $index % 2 === 0 ? 'row-even' : 'row-odd' ?>">
                 <td><?= htmlspecialchars($article->getTitle(), ENT_QUOTES) ?></td>
                 <td><?= $article->getViews() ?></td>
-                <td><?= $article->commentCount ?? 0 ?></td>
+                <td><?= $article->getCommentCount() ?></td>
                 <td><?= $article->getDateCreation()->format('d/m/Y H:i') ?></td>
             </tr>
         <?php endforeach; ?>

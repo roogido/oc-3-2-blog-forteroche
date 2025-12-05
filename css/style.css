@@ -412,3 +412,21 @@ footer {
     margin-bottom: 15px;
 }
 
+.comment-actions {
+    margin-top: 10px;
+}
+
+.detailComment {
+    display: flex;
+    flex-direction: column;
+}
+
+.delete-comment {
+    background-color: #a94442;
+    margin-top: 5px;
+    width: fit-content;
+}
+
+.delete-comment:hover {
+    background-color: #922e2b;
+}

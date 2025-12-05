@@ -31,12 +31,14 @@
                 echo '  <div class="detailComment">';
                 echo '      <h3 class="info">Le ' . Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) . ' a écrit :</h3>';
                 echo '      <p class="content">' . Utils::format($comment->getContent()) . '</p>';
-
-                // Update SH : Ajout Bouton de suppression
-                echo '      <a class="submit delete-comment" href="index.php?action=deleteComment&id=' 
-                        . $comment->getId() . '&article=' . $article->getId() 
-                        . '" ' . Utils::askConfirmation("Supprimer ce commentaire ?") . '>Supprimer</a>';
-
+                echo '      <div class="comment-actions">';
+                // Update SH : Ajout du bouton de suppression
+                if ($isConnected) {
+                    echo '          <a class="submit delete-comment" 
+                                        href="index.php?action=deleteComment&id=' . $comment->getId() . '&article=' . $article->getId() . '" 
+                                        ' . Utils::askConfirmation("Supprimer ce commentaire ?") . '>Supprimer</a>';
+                }
+                echo '      </div>';
                 echo '  </div>';
                 echo '</li>';
             }            

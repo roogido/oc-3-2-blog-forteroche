@@ -12,7 +12,7 @@ class AdminController {
     public function showAdmin() : void
     {
         // On vérifie que l'utilisateur est connecté.
-        $this->checkIfUserIsConnected();
+        Utils::checkIfUserIsConnected();
 
         // On récupère les articles.
         $articleManager = new ArticleManager();
@@ -29,13 +29,13 @@ class AdminController {
      * Vérifie que l'utilisateur est connecté.
      * @return void
      */
-    private function checkIfUserIsConnected() : void
-    {
-        // On vérifie que l'utilisateur est connecté.
-        if (!isset($_SESSION['user'])) {
-            Utils::redirect("connectionForm");
-        }
-    }
+    // private function checkIfUserIsConnected() : void
+    // {
+    //     // On vérifie que l'utilisateur est connecté.
+    //     if (!isset($_SESSION['user'])) {
+    //         Utils::redirect("connectionForm");
+    //     }
+    // }
 
     /**
      * Affichage du formulaire de connexion.
@@ -102,7 +102,7 @@ class AdminController {
      */
     public function showUpdateArticleForm() : void 
     {
-        $this->checkIfUserIsConnected();
+        Utils::checkIfUserIsConnected();
 
         // On récupère l'id de l'article s'il existe.
         $id = Utils::request("id", -1);
@@ -130,7 +130,7 @@ class AdminController {
      */
     public function updateArticle() : void 
     {
-        $this->checkIfUserIsConnected();
+        Utils::checkIfUserIsConnected();
 
         // On récupère les données du formulaire.
         $id = Utils::request("id", -1);
@@ -164,7 +164,7 @@ class AdminController {
      */
     public function deleteArticle() : void
     {
-        $this->checkIfUserIsConnected();
+        Utils::checkIfUserIsConnected();
 
         $id = Utils::request("id", -1);
 
@@ -183,7 +183,7 @@ class AdminController {
     public function showMonitoring(): void
     {
         // On vérifie que l'utilisateur est connecté.
-        $this->checkIfUserIsConnected();
+        Utils::checkIfUserIsConnected();
 
         $articleManager = new ArticleManager();
         $commentManager = new CommentManager();
@@ -206,7 +206,10 @@ class AdminController {
 
         // Injection du nombre de commentaires par article
         foreach ($articles as $article) {
-            $article->commentCount = $commentManager->countCommentsByArticleId($article->getId());
+            //$article->commentCount = $commentManager->countCommentsByArticleId($article->getId());
+            $article->setCommentCount(
+                $commentManager->countCommentsByArticleId($article->getId())
+            );            
         }
 
         $view = new View("Monitoring des articles");
